@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="fisher960:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/fisher960_jar</output-path>
+    <root id="archive" name="fisher960.jar">
+      <element id="module-output" name="fisher960" />
+    </root>
+  </artifact>
+</component>

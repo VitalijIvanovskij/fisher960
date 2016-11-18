@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_fisher960" default="compile.module.fisher960">
+  <dirname property="module.fisher960.basedir" file="${ant.file.module_fisher960}"/>
+  
+  <property name="module.jdk.home.fisher960" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.fisher960" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.fisher960" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.fisher960" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="fisher960.output.dir" value="${module.fisher960.basedir}/out/production/fisher960"/>
+  <property name="fisher960.testoutput.dir" value="${module.fisher960.basedir}/out/test/fisher960"/>
+  
+  <path id="fisher960.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="fisher960.module.production.classpath">
+    <path refid="${module.jdk.classpath.fisher960}"/>
+  </path>
+  
+  <path id="fisher960.runtime.production.module.classpath">
+    <pathelement location="${fisher960.output.dir}"/>
+  </path>
+  
+  <path id="fisher960.module.classpath">
+    <path refid="${module.jdk.classpath.fisher960}"/>
+    <pathelement location="${fisher960.output.dir}"/>
+  </path>
+  
+  <path id="fisher960.runtime.module.classpath">
+    <pathelement location="${fisher960.testoutput.dir}"/>
+    <pathelement location="${fisher960.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.fisher960">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.fisher960">
+    <patternset refid="excluded.from.module.fisher960"/>
+  </patternset>
+  
+  <path id="fisher960.module.sourcepath">
+    <dirset dir="${module.fisher960.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.fisher960" depends="compile.module.fisher960.production,compile.module.fisher960.tests" description="Compile module fisher960"/>
+  
+  <target name="compile.module.fisher960.production" depends="register.custom.compilers" description="Compile module fisher960; production classes">
+    <mkdir dir="${fisher960.output.dir}"/>
+    <javac2 destdir="${fisher960.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.fisher960}/javac">
+      <compilerarg line="${compiler.args.fisher960}"/>
+      <bootclasspath refid="fisher960.module.bootclasspath"/>
+      <classpath refid="fisher960.module.production.classpath"/>
+      <src refid="fisher960.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.fisher960"/>
+    </javac2>
+    
+    <copy todir="${fisher960.output.dir}">
+      <fileset dir="${module.fisher960.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.fisher960.tests" depends="register.custom.compilers,compile.module.fisher960.production" description="compile module fisher960; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.fisher960" description="cleanup module">
+    <delete dir="${fisher960.output.dir}"/>
+    <delete dir="${fisher960.testoutput.dir}"/>
+  </target>
+</project>

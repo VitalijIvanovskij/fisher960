@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+MIDlet-1: Name,Chess.png,Main
+Main-Class: FisherMainFrame
+
